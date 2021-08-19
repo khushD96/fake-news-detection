@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News📰 Detection System</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div id="pageloader">
+        <img src="{{ url_for('static', filename='loader.gif') }}" alt="processing..." />
+    </div>
+    <div class="login">
+        <h1>Fake News📰 Detector</h1>
+        <h3>By Khush Dwivedi</h3>
+
+
+
+        <form action="{{ url_for('predict')}}" method="POST" id="myform">
+            <textarea id="m" name="message" rows="6" cols="50" required="required" style="font-size: 18pt"></textarea>
+            <br> </br>
+            <button id="btn" type="submit" class="btn btn-primary btn-block btn-large"
+                onsubmit="return onSubmit();">Predict</button>
+
+
+
+            <div class="results">
+
+
+                <!-- <div id="loading-bar-spinner" class="spinner">
+                    <div class="spinner-icon"></div>
+                </div> -->
+                {% if prediction == ['FAKE']%}
+                <script>
+                    document.getElementById("m").style.display = "none"
+                    document.getElementById("btn").style.display = "none"
+                    document.getElementById("true").style.display = "none"
+                </script>
+                <h2 id="false" style="color:red;">Looking Spam⚠️News📰 </h2>
+
+<button id="btn" type="submit" class="btn btn-primary btn-block btn-large"
+onclick="location.href = '/';">Check Another</button>
+                {% elif prediction == ['REAL']%}
+                <h2 style="color:green;"><b>Looking Real News📰</b></h2>
+                <script>
+                    document.getElementById("m").style.display = "none"
+                    document.getElementById("btn").style.display = "none"
+                    document.getElementById("false").style.display = "none"
+                </script>
+               
+
+<button id="btn" type="submit" class="btn btn-primary btn-block btn-large"
+onclick="location.href = '/';">Check Another</button>
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myform").on("submit", function () {
+                $("#pageloader").fadeIn();
+            });//submit
+        });//document ready
+    </script>
+</body>
+
+</html>
